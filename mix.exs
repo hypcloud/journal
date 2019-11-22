@@ -6,7 +6,14 @@ defmodule Journal.MixProject do
       app: :journal,
       version: "0.1.0",
       elixir: "~> 1.9",
-      start_permanent: Mix.env() == :prod,
+      start_permanent: false,
+      description: "A library to track writes to Ecto models.",
+      package: [
+        licenses: ["MIT"],
+        files: ~w(lib .formatter.exs mix.exs README* readme* LICENSE*
+                license* CHANGELOG* changelog*)
+      ],
+      source_url: "https://github.com/sambou/journal",
       deps: deps(),
       elixirc_paths: elixirc_paths(Mix.env()),
       aliases: aliases()

@@ -2,7 +2,14 @@ defmodule Mix.Tasks.Journal.Gen do
   use Mix.Task
   import Mix.Generator
 
-  @shortdoc "Generates a new migration with for the repo"
+  @moduledoc """
+  Generate a migration to add tracking capabilities to an Ecto Schema
+
+  ## Usage
+  ```sh
+    $ mix journal.gen [SCHEMA_NAME]
+  ```
+  """
 
   def run([table_name]) do
     change = EEx.eval_string(migration_template(table_name: table_name))

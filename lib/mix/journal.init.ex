@@ -2,7 +2,14 @@ defmodule Mix.Tasks.Journal.Init do
   use Mix.Task
   import Mix.Generator
 
-  @shortdoc "Generates a new migration with for the repo"
+  @moduledoc """
+  Generate a migration to add the journal table, indexes and stored procedure to your schema.
+
+  ## Usage
+  ```sh
+    $ mix journal.init
+  ```
+  """
 
   def run(args) do
     change = EEx.eval_string(migration_template([]))
