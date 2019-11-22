@@ -10,8 +10,8 @@ defmodule Journal.MixProject do
       description: "A library to track writes to Ecto models.",
       package: [
         licenses: ["MIT"],
-        files: ~w(lib .formatter.exs mix.exs README* readme* LICENSE*
-                license* CHANGELOG* changelog*)
+        files: ~w(lib .formatter.exs mix.exs README*),
+        links: %{"Github" => "https://github.com/sambou/journal"}
       ],
       source_url: "https://github.com/sambou/journal",
       deps: deps(),
