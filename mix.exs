@@ -4,7 +4,7 @@ defmodule Journal.MixProject do
   def project do
     [
       app: :journal,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.9",
       start_permanent: false,
       description: "A library to track writes to Ecto models.",

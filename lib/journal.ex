@@ -58,6 +58,15 @@ defmodule Journal do
   @callback history_of(id) :: Ecto.Query.t()
   @type id :: String.t() | Integer.t()
 
+  @type history_entry :: %{
+          id: Integer.t(),
+          table_name: String.t(),
+          operation: String.t(),
+          new_val: %{},
+          old_val: %{},
+          inserted_at: DateTime.t()
+        }
+
   defmacro __using__(_) do
     quote do
       @behaviour Journal
