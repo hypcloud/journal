@@ -52,6 +52,69 @@ end
 To get a todos history, you can now call `Todos.Todo.history_of(id)` to get the query needed
 to list the changes. You can still append to this query, e.g. for filtering or sorting purposes.
 
+For example:
+
+```elixir
+{:ok, todo} = Journal.Repo.insert(%Journal.Todo{title: "Foo", status: "open"})
+Journal.Todo.history_of(todo.id) |> Journal.Repo.all()
+
+[
+  %Journal.Todo.History{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "journal_journal">,
+    id: 1,
+    inserted_at: ~U[2019-12-03 17:21:04.639808Z],
+    new_val: %Journal.Todo{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "todos">,
+      id: 1,
+      status: "open",
+      title: "Foo"
+    },
+    old_val: nil,
+    operation: "INSERT",
+    table_name: "todos"
+  }
+]
+
+Journal.Repo.update(cast(todo, %{title: "Bar"}, [:title]))
+Journal.Todo.history_of(todo.id) |> Journal.Repo.all()
+
+[
+  %Journal.Todo.History{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "journal_journal">,
+    id: 2,
+    inserted_at: ~U[2019-12-03 17:21:04.643228Z],
+    new_val: %Journal.Todo{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "todos">,
+      id: 1,
+      status: "open",
+      title: "Bar"
+    },
+    old_val: %Journal.Todo{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "todos">,
+      id: 1,
+      status: "open",
+      title: "Foo"
+    },
+    operation: "UPDATE",
+    table_name: "todos"
+  },
+  %Journal.Todo.History{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "journal_journal">,
+    id: 1,
+    inserted_at: ~U[2019-12-03 17:21:04.639808Z],
+    new_val: %Journal.Todo{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "todos">,
+      id: 1,
+      status: "open",
+      title: "Foo"
+    },
+    old_val: nil,
+    operation: "INSERT",
+    table_name: "todos"
+  }
+]
+```
+
 ## More
 
 This feature leverages a postgres trigger as described here:
