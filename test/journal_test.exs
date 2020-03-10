@@ -4,7 +4,7 @@ defmodule JournalTest do
   doctest Journal
 
   setup do
-    clean_migration_folder()
+    on_exit("clean migrations", &clean_migration_folder/0)
 
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Journal.Repo, sandbox: false)
   end
@@ -39,11 +39,9 @@ defmodule JournalTest do
     assert del.operation == "DELETE"
     assert del.old_val.title == "Bar"
     assert del.new_val == nil
-
-    on_exit("clean migrations", &clean_migration_folder/0)
   end
 
   defp clean_migration_folder do
-    Path.wildcard("priv/repo/migrations/*") |> Enum.each(fn path -> File.rm(path) end)
+    Path.wildcard("priv/repo/migrations/*") |> Enum.each(&File.rm/1)
   end
 end

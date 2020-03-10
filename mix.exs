@@ -11,9 +11,9 @@ defmodule Journal.MixProject do
       package: [
         licenses: ["MIT"],
         files: ~w(lib .formatter.exs mix.exs README*),
-        links: %{"Github" => "https://github.com/sambou/journal"}
+        links: %{"Github" => "https://github.com/hypcloud/journal"}
       ],
-      source_url: "https://github.com/sambou/journal",
+      source_url: "https://github.com/hypcloud/journal",
       deps: deps(),
       elixirc_paths: elixirc_paths(Mix.env()),
       aliases: aliases()
